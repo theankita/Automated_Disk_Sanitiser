@@ -2,20 +2,20 @@
 
 ## Overview
 
-Automated Disk Sanitiser is a Python-based automation tool designed to identify and remove duplicate files from a system. The application recursively scans directories, generates MD5 checksums for files, detects duplicates, and automatically deletes redundant copies to optimize disk storage usage.
+Automated Disk Sanitiser is a Python-based automation tool that identifies and removes duplicate files from a specified directory. The application traverses directories, generates MD5 checksums for files, detects duplicates based on matching checksums, and deletes redundant copies while retaining one original file.
 
-This project demonstrates practical applications of file handling, hashing algorithms, automation scripting, and directory traversal in Python.
+This project demonstrates the use of Python for file handling, hashing algorithms, directory traversal, and automation scripting.
 
 ---
 
 ## Features
 
-* Recursive directory scanning
+* Directory traversal using `os.walk()`
 * Duplicate file detection using MD5 hashing
-* Automatic removal of redundant files
-* Fast and lightweight execution
-* Efficient storage optimization
-* Simple command-line interface
+* Automatic deletion of duplicate files
+* Retains one original copy of each file
+* Lightweight command-line utility
+* Fast checksum-based file comparison
 * Automated file management
 
 ---
@@ -30,15 +30,14 @@ This project demonstrates practical applications of file handling, hashing algor
 
 * os
 * hashlib
-* File Handling
 
 ### Concepts
 
-* Automation Scripting
+* File Handling
 * Directory Traversal
 * Checksum Generation
 * Duplicate Detection
-* Storage Optimization
+* Automation Scripting
 * File Management
 
 ---
@@ -50,7 +49,7 @@ Automated_Disk_Sanitiser/
 │
 ├── DiskSanitiser.py
 │
-├── README.md
+└── README.md
 ```
 
 ---
@@ -59,54 +58,64 @@ Automated_Disk_Sanitiser/
 
 Select Directory
 ↓
-Recursive Directory Scan
+Traverse Files Using os.walk()
 ↓
-Generate MD5 Checksum
+Generate MD5 Checksum for Each File
 ↓
-Compare File Hashes
+Store Checksums in Dictionary
 ↓
 Identify Duplicate Files
 ↓
-Remove Redundant Copies
+Delete Redundant Copies
 ↓
-Display Summary Report
+Display Total Deleted Files
 
 ---
 
 ## How It Works
 
-### 1. Directory Scanning
+### 1. Calculate File Checksum
 
-The application recursively scans all files and subdirectories using:
-
-```python
-os.walk()
-```
-
-### 2. Checksum Generation
-
-Each file is processed and assigned a unique MD5 checksum.
+The application reads each file in binary mode and generates an MD5 checksum.
 
 ```python
 hashlib.md5()
 ```
 
+Files with identical content produce the same checksum.
+
+### 2. Directory Traversal
+
+The program traverses the specified directory and its subdirectories using:
+
+```python
+os.walk()
+```
+
 ### 3. Duplicate Detection
 
-Files with identical MD5 hashes are considered duplicates.
+A dictionary is used to store file checksums and corresponding file paths.
 
-### 4. File Removal
+```python
+Duplicate[Checksum] = [filename]
+```
 
-The program preserves one original file and deletes all duplicate copies.
+If multiple files have the same checksum, they are considered duplicates.
 
-### 5. Reporting
+### 4. Delete Duplicate Files
+
+The program keeps the first file and removes all additional copies.
+
+```python
+os.remove()
+```
+
+### 5. Summary
 
 After completion, the application displays:
 
-* Total files scanned
-* Duplicate files detected
-* Files deleted
-* Storage optimization summary
+* Names of deleted files
+* Total number of duplicate files removed
 
 ---
 
@@ -135,15 +144,10 @@ python DiskSanitiser.py
 ## Sample Output
 
 ```text
-Scanning Directory...
+Deleted file : D:\Documents\copy1.txt
+Deleted file : D:\Documents\copy2.txt
 
-Duplicate File Found:
-photo_copy.jpg
-
-Deleted Successfully
-
-Total Files Scanned : 250
-Duplicate Files Removed : 15
+Total deleted files : 2
 ```
 
 ---
@@ -154,21 +158,22 @@ This project demonstrates:
 
 * Python Automation
 * File Handling
-* Hashing Algorithms
-* Directory Traversal
-* Storage Management
+* Hashing with MD5
+* Dictionary-Based Data Storage
+* Directory Traversal using os.walk()
+* Duplicate File Detection
 * Command-Line Application Development
 
 ---
 
-## Future Enhancements
+## Future Improvements
 
-* SHA-256 Based Duplicate Detection
-* GUI Interface
-* Recovery Bin for Deleted Files
+* SHA-256 Based Hashing
+* File Recovery Option
+* Storage Space Saved Calculation
 * Duplicate File Report Generation
-* Multi-threaded Scanning
-* Storage Usage Analytics
+* Graphical User Interface (GUI)
+* Multi-threaded File Scanning
 
 ---
 
