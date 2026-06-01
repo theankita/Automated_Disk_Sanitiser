@@ -49,7 +49,7 @@ Automated_Disk_Sanitiser/
 │
 ├── DiskSanitiser.py
 │
-└── README.md
+README.md
 ```
 
 ---
