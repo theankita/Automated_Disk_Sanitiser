@@ -47,7 +47,7 @@ This project demonstrates the use of Python for file handling, hashing algorithm
 ```bash
 Automated_Disk_Sanitiser/
 │
-├── Disk_Sanitizer.py
+├── DiskSanitiser.py
 │
 └── README.md
 ```
